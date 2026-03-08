@@ -34,7 +34,7 @@ export default function ResetPassword() {
       toast.error(error.message);
     } else {
       toast.success("Parola a fost actualizată!");
-      navigate("/");
+      navigate("/dashboard");
     }
   };
 

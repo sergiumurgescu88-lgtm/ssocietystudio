@@ -20,7 +20,7 @@ const NotFound = () => {
         </p>
         <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
           <Button asChild>
-            <Link to="/"><Home className="mr-2 h-4 w-4" /> Mergi la Dashboard</Link>
+            <Link to="/dashboard"><Home className="mr-2 h-4 w-4" /> Mergi la Dashboard</Link>
           </Button>
           <Button variant="outline" onClick={() => window.history.back()}>
             <ArrowLeft className="mr-2 h-4 w-4" /> Înapoi
