@@ -1,7 +1,7 @@
 import { Bell, Search, Moon, Sun, User, Settings, CreditCard, LogOut } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,63 +11,71 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { MobileSidebar } from "./MobileSidebar";
 import { useTheme } from "@/hooks/use-theme";
+import { useAuth } from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 export function Topbar() {
   const { theme, toggle } = useTheme();
+  const { profile, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const initials = profile?.full_name
+    ? profile.full_name.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase()
+    : "SS";
+
+  const handleLogout = async () => {
+    await signOut();
+    toast("Ai fost deconectat");
+    navigate("/login");
+  };
 
   return (
     <header className="flex h-14 shrink-0 items-center gap-3 border-b border-border bg-background px-4 sm:px-6">
       <MobileSidebar />
 
-      {/* Search */}
       <div className="relative hidden flex-1 sm:block sm:max-w-sm">
         <Search className="absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-        <Input
-          placeholder="Search..."
-          className="h-9 pl-8 text-sm"
-          aria-label="Search"
-        />
+        <Input placeholder="Search..." className="h-9 pl-8 text-sm" aria-label="Search" />
       </div>
       <div className="flex-1 sm:hidden" />
 
       <div className="flex items-center gap-1">
-        {/* Theme toggle */}
         <Button variant="ghost" size="icon" onClick={toggle} aria-label="Toggle theme">
           {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
         </Button>
 
-        {/* Notifications */}
-        <Button
-          variant="ghost"
-          size="icon"
-          aria-label="Notifications"
-          onClick={() => toast("No new notifications")}
-        >
+        <Button variant="ghost" size="icon" aria-label="Notifications" onClick={() => toast("No new notifications")}>
           <Bell className="h-4 w-4" />
         </Button>
 
-        {/* Profile */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon" className="rounded-full" aria-label="User menu">
               <Avatar className="h-8 w-8">
-                <AvatarFallback className="bg-primary/10 text-xs font-semibold text-primary">SS</AvatarFallback>
+                {profile?.avatar_url && <AvatarImage src={profile.avatar_url} alt={profile.full_name || "User"} />}
+                <AvatarFallback className="bg-primary/10 text-xs font-semibold text-primary">{initials}</AvatarFallback>
               </Avatar>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-48">
-            <DropdownMenuItem className="gap-2">
-              <User className="h-4 w-4" /> Profile
-            </DropdownMenuItem>
-            <DropdownMenuItem className="gap-2">
+            {profile?.full_name && (
+              <>
+                <div className="px-2 py-1.5">
+                  <p className="text-sm font-medium text-foreground">{profile.full_name}</p>
+                  <p className="text-xs text-muted-foreground">{profile.email}</p>
+                </div>
+                <DropdownMenuSeparator />
+              </>
+            )}
+            <DropdownMenuItem className="gap-2" onClick={() => navigate("/settings")}>
               <Settings className="h-4 w-4" /> Settings
             </DropdownMenuItem>
             <DropdownMenuItem className="gap-2">
               <CreditCard className="h-4 w-4" /> Billing
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="gap-2 text-destructive" onClick={() => toast("Logged out")}>
+            <DropdownMenuItem className="gap-2 text-destructive" onClick={handleLogout}>
               <LogOut className="h-4 w-4" /> Logout
             </DropdownMenuItem>
           </DropdownMenuContent>
