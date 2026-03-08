@@ -14,6 +14,107 @@ export type Database = {
   }
   public: {
     Tables: {
+      agent_logs: {
+        Row: {
+          agent_id: string
+          content: string | null
+          created_at: string
+          id: string
+          title: string
+          type: string
+          user_id: string
+        }
+        Insert: {
+          agent_id: string
+          content?: string | null
+          created_at?: string
+          id?: string
+          title: string
+          type?: string
+          user_id: string
+        }
+        Update: {
+          agent_id?: string
+          content?: string | null
+          created_at?: string
+          id?: string
+          title?: string
+          type?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "agent_logs_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      agents: {
+        Row: {
+          autonomy: number
+          budget_limit: number | null
+          cost_today: number | null
+          created_at: string
+          description: string | null
+          health: number
+          icon: string
+          id: string
+          is_active: boolean
+          name: string
+          recently_updated: boolean
+          role: string
+          slug: string
+          sort_order: number
+          status: string
+          system_prompt: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          autonomy?: number
+          budget_limit?: number | null
+          cost_today?: number | null
+          created_at?: string
+          description?: string | null
+          health?: number
+          icon?: string
+          id?: string
+          is_active?: boolean
+          name: string
+          recently_updated?: boolean
+          role: string
+          slug: string
+          sort_order?: number
+          status?: string
+          system_prompt?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          autonomy?: number
+          budget_limit?: number | null
+          cost_today?: number | null
+          created_at?: string
+          description?: string | null
+          health?: number
+          icon?: string
+          id?: string
+          is_active?: boolean
+          name?: string
+          recently_updated?: boolean
+          role?: string
+          slug?: string
+          sort_order?: number
+          status?: string
+          system_prompt?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       contact_interactions: {
         Row: {
           contact_id: string
