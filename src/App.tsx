@@ -60,6 +60,7 @@ const App = () => (
               <Routes>
                 {/* Public landing page */}
                 <Route path="/landing" element={<LandingPage />} />
+                <Route path="/" element={<LandingPage />} />
 
                 {/* Auth routes */}
                 <Route path="/login" element={<Login />} />
