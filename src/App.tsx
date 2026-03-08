@@ -71,7 +71,7 @@ const App = () => (
 
                 {/* Protected routes */}
                 <Route element={<ProtectedLayout />}>
-                  <Route path="/" element={<Dashboard />} />
+                  <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/crm" element={<CrmNeural />} />
                   <Route path="/agents" element={<AgentArmy />} />
                   <Route path="/chat" element={<CommandChat />} />
