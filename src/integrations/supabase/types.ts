@@ -14,6 +14,98 @@ export type Database = {
   }
   public: {
     Tables: {
+      contact_interactions: {
+        Row: {
+          contact_id: string
+          content: string | null
+          created_at: string
+          id: string
+          title: string
+          type: string
+          user_id: string
+        }
+        Insert: {
+          contact_id: string
+          content?: string | null
+          created_at?: string
+          id?: string
+          title: string
+          type: string
+          user_id: string
+        }
+        Update: {
+          contact_id?: string
+          content?: string | null
+          created_at?: string
+          id?: string
+          title?: string
+          type?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contact_interactions_contact_id_fkey"
+            columns: ["contact_id"]
+            isOneToOne: false
+            referencedRelation: "contacts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      contacts: {
+        Row: {
+          ai_score: number
+          company: string | null
+          created_at: string
+          email: string | null
+          id: string
+          is_new: boolean
+          last_contact_at: string | null
+          name: string
+          notes: string | null
+          phone: string | null
+          position: string | null
+          source: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          ai_score?: number
+          company?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          is_new?: boolean
+          last_contact_at?: string | null
+          name: string
+          notes?: string | null
+          phone?: string | null
+          position?: string | null
+          source?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          ai_score?: number
+          company?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          is_new?: boolean
+          last_contact_at?: string | null
+          name?: string
+          notes?: string | null
+          phone?: string | null
+          position?: string | null
+          source?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
