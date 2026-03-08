@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { AppSidebar } from "./AppSidebar";
 import { Topbar } from "./Topbar";
+import { CommandFAB } from "./chat/CommandFAB";
 
 export function AppLayout() {
   return (
@@ -15,6 +16,7 @@ export function AppLayout() {
           SSociety Studio © 2024
         </footer>
       </div>
+      <CommandFAB />
     </div>
   );
 }
