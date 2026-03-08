@@ -1,43 +1,82 @@
-import { PageHeader } from "@/components/PageHeader";
-import { StatCard } from "@/components/StatCard";
-import { ActivityItem } from "@/components/ActivityItem";
-import { Users, Zap, TrendingUp, Activity } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useState, useEffect, useCallback } from "react";
+import { useAuth } from "@/hooks/useAuth";
+import { DollarSign, Users, Bot, CheckCircle } from "lucide-react";
+import { type Period, getStats } from "@/lib/dashboard-data";
+import { DashboardStatCard } from "@/components/dashboard/DashboardStatCard";
+import { RevenueChart } from "@/components/dashboard/RevenueChart";
+import { AgentStatusGrid } from "@/components/dashboard/AgentStatusGrid";
+import { ActivityFeed } from "@/components/dashboard/ActivityFeed";
+import { TopContent } from "@/components/dashboard/TopContent";
+import { UrgentTasks } from "@/components/dashboard/UrgentTasks";
+import { HealthScore } from "@/components/dashboard/HealthScore";
+import { QuickActions } from "@/components/dashboard/QuickActions";
 
-const stats = [
-  { title: "Total Users", value: "2,847", trend: "up" as const, trendValue: "+12.5%", icon: Users },
-  { title: "Active Agents", value: "18", trend: "up" as const, trendValue: "+3", icon: Zap },
-  { title: "Revenue", value: "$48.2K", trend: "up" as const, trendValue: "+8.1%", icon: TrendingUp },
-  { title: "Tasks Running", value: "142", trend: "down" as const, trendValue: "-5", icon: Activity },
-];
-
-const activities = [
-  { avatar: "JD", text: "Agent Alpha completed lead scoring batch", timestamp: "2 min ago", status: "success" as const },
-  { avatar: "MK", text: "New workflow 'Email Outreach v3' deployed", timestamp: "15 min ago", status: "info" as const },
-  { avatar: "AR", text: "CRM sync failed for Salesforce connector", timestamp: "1h ago", status: "error" as const },
-  { avatar: "TP", text: "Content generation queue at 85% capacity", timestamp: "2h ago", status: "warning" as const },
-  { avatar: "SS", text: "Monthly report generated successfully", timestamp: "3h ago", status: "success" as const },
-];
+function getGreeting(): string {
+  const h = new Date().getHours();
+  if (h < 12) return "Bună dimineața";
+  if (h < 18) return "Bună ziua";
+  return "Bună seara";
+}
 
 export default function Dashboard() {
+  const { profile } = useAuth();
+  const [period, setPeriod] = useState<Period>("week");
+  const [refreshKey, setRefreshKey] = useState(0);
+  const stats = getStats(period);
+
+  // Auto-refresh every 30s
+  const refresh = useCallback(() => setRefreshKey((k) => k + 1), []);
+  useEffect(() => {
+    const interval = setInterval(refresh, 30_000);
+    return () => clearInterval(interval);
+  }, [refresh]);
+
+  const firstName = profile?.full_name?.split(" ")[0] || "there";
+  const healthScore = Math.min(100, Math.round((stats.leads / 10) + (stats.tasks / 20) + 40));
+
   return (
-    <>
-      <PageHeader title="Dashboard" description="Welcome back. Here's what's happening today." />
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {stats.map((s) => (
-          <StatCard key={s.title} {...s} />
-        ))}
+    <div key={refreshKey}>
+      {/* Greeting */}
+      <div className="mb-6 opacity-0 animate-fade-in">
+        <h1 className="text-2xl font-bold tracking-tight text-foreground">
+          {getGreeting()}, {firstName}! 👋
+        </h1>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Iată ce se întâmplă în SSociety Studio astăzi.
+        </p>
       </div>
-      <Card className="mt-6">
-        <CardHeader>
-          <CardTitle className="text-base">Recent Activity</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-1 p-0 pb-2">
-          {activities.map((a, i) => (
-            <ActivityItem key={i} {...a} />
-          ))}
-        </CardContent>
-      </Card>
-    </>
+
+      {/* Stat Cards */}
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <DashboardStatCard title="Revenue" value={stats.revenue} trend="up" trendValue={stats.revenueTrend} icon={DollarSign} tooltip="Venituri totale în perioada selectată" delay={50} />
+        <DashboardStatCard title="Lead-uri" value={stats.leads} trend="up" trendValue={stats.leadsTrend} icon={Users} tooltip="Lead-uri noi generate de agenți" delay={100} />
+        <DashboardStatCard title="Agenți Activi" value={stats.agents} trend="up" trendValue="+3" icon={Bot} tooltip="Agenți AI activi în acest moment" delay={150} />
+        <DashboardStatCard title="Tasks Done" value={stats.tasks} trend="up" trendValue={stats.tasksTrend} icon={CheckCircle} tooltip="Sarcini finalizate automat" delay={200} />
+      </div>
+
+      {/* Main content grid */}
+      <div className="mt-6 grid gap-6 lg:grid-cols-3">
+        {/* Left column: chart + agents */}
+        <div className="space-y-6 lg:col-span-2">
+          <RevenueChart period={period} onPeriodChange={setPeriod} />
+          <AgentStatusGrid />
+        </div>
+
+        {/* Right column: health + top content */}
+        <div className="space-y-6">
+          <HealthScore score={healthScore} />
+          <TopContent />
+        </div>
+      </div>
+
+      {/* Bottom row */}
+      <div className="mt-6 grid gap-6 lg:grid-cols-2">
+        <ActivityFeed />
+        <UrgentTasks />
+      </div>
+
+      {/* Floating quick actions */}
+      <QuickActions />
+    </div>
   );
 }
