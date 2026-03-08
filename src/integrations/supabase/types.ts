@@ -245,6 +245,63 @@ export type Database = {
         }
         Relationships: []
       }
+      content_posts: {
+        Row: {
+          content: string
+          created_at: string
+          hashtags: string[] | null
+          id: string
+          image_url: string | null
+          is_template: boolean
+          platform: string
+          published_at: string | null
+          reference_url: string | null
+          scheduled_at: string | null
+          status: string
+          subject: string
+          tone: string
+          updated_at: string
+          user_id: string
+          variation_group: string | null
+        }
+        Insert: {
+          content?: string
+          created_at?: string
+          hashtags?: string[] | null
+          id?: string
+          image_url?: string | null
+          is_template?: boolean
+          platform?: string
+          published_at?: string | null
+          reference_url?: string | null
+          scheduled_at?: string | null
+          status?: string
+          subject?: string
+          tone?: string
+          updated_at?: string
+          user_id: string
+          variation_group?: string | null
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          hashtags?: string[] | null
+          id?: string
+          image_url?: string | null
+          is_template?: boolean
+          platform?: string
+          published_at?: string | null
+          reference_url?: string | null
+          scheduled_at?: string | null
+          status?: string
+          subject?: string
+          tone?: string
+          updated_at?: string
+          user_id?: string
+          variation_group?: string | null
+        }
+        Relationships: []
+      }
       conversations: {
         Row: {
           created_at: string
