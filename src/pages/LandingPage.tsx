@@ -660,8 +660,11 @@ function LandingFooter() {
           <p className="text-xs text-muted-foreground">
             © {new Date().getFullYear()} MURSE ADVERTISING S.R.L. Toate drepturile rezervate.
           </p>
-          <div className="flex items-center gap-1 text-xs text-muted-foreground">
-            <Globe className="h-3 w-3" /> Made in România 🇷🇴
+          <div className="flex flex-col items-end gap-1 text-xs text-muted-foreground sm:flex-row sm:items-center sm:gap-3">
+            <div className="flex items-center gap-1">
+              <Globe className="h-3 w-3" /> Made in România 🇷🇴
+            </div>
+            <span>Powered by <a href="https://ssociety.eu" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline">SSocietyHUB</a> — ssociety.eu</span>
           </div>
         </div>
       </div>
