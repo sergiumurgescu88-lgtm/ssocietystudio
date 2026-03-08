@@ -419,6 +419,92 @@ export type Database = {
         }
         Relationships: []
       }
+      workflow_logs: {
+        Row: {
+          created_at: string
+          id: string
+          message: string | null
+          status: string
+          step_index: number | null
+          user_id: string
+          workflow_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message?: string | null
+          status?: string
+          step_index?: number | null
+          user_id: string
+          workflow_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string | null
+          status?: string
+          step_index?: number | null
+          user_id?: string
+          workflow_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workflow_logs_workflow_id_fkey"
+            columns: ["workflow_id"]
+            isOneToOne: false
+            referencedRelation: "workflows"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      workflows: {
+        Row: {
+          created_at: string
+          description: string | null
+          fail_count: number
+          id: string
+          is_active: boolean
+          is_template: boolean
+          last_run_at: string | null
+          last_run_status: string | null
+          name: string
+          run_count: number
+          steps: Json
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          fail_count?: number
+          id?: string
+          is_active?: boolean
+          is_template?: boolean
+          last_run_at?: string | null
+          last_run_status?: string | null
+          name?: string
+          run_count?: number
+          steps?: Json
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          fail_count?: number
+          id?: string
+          is_active?: boolean
+          is_template?: boolean
+          last_run_at?: string | null
+          last_run_status?: string | null
+          name?: string
+          run_count?: number
+          steps?: Json
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
