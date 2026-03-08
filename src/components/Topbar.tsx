@@ -45,8 +45,9 @@ export function Topbar() {
           {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
         </Button>
 
-        <Button variant="ghost" size="icon" aria-label="Notifications" onClick={() => toast("No new notifications")}>
+        <Button variant="ghost" size="icon" className="relative" aria-label="Notifications" onClick={() => toast("3 task-uri urgente necesită atenție")}>
           <Bell className="h-4 w-4" />
+          <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-destructive text-[9px] font-bold text-destructive-foreground">3</span>
         </Button>
 
         <DropdownMenu>
