@@ -37,7 +37,7 @@ export default function Login() {
     if (error) {
       toast.error(error.message === "Invalid login credentials" ? "Email sau parolă incorectă" : error.message);
     } else {
-      navigate("/");
+      navigate("/dashboard");
     }
   };
 
