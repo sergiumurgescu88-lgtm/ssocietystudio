@@ -614,9 +614,16 @@ function LandingFooter() {
               </div>
               <span className="font-bold text-foreground">SSociety Studio</span>
             </div>
-            <p className="text-xs text-muted-foreground leading-relaxed">
+            <p className="text-xs text-muted-foreground leading-relaxed mb-3">
               Platforma AI care transformă business-ul tău cu 6 agenți digitali specializați.
             </p>
+            <div className="space-y-1 text-xs text-muted-foreground">
+              <p className="font-semibold text-foreground/80">MURSE ADVERTISING S.R.L.</p>
+              <p>CUI: 44923890</p>
+              <p>Nr. Înmatriculare: J40/16148/2021</p>
+              <p>EUID: ROONRC.J40/16148/2021</p>
+              <p>Înființată: 17.09.2021</p>
+            </div>
           </div>
 
           <div>
@@ -641,7 +648,8 @@ function LandingFooter() {
           <div>
             <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Contact</h4>
             <ul className="space-y-2 text-sm">
-              <li><a href="mailto:hello@ssociety.studio" className="text-muted-foreground hover:text-foreground transition-colors">hello@ssociety.studio</a></li>
+              <li><a href="mailto:sergiusociety@gmail.com" className="text-muted-foreground hover:text-foreground transition-colors">sergiusociety@gmail.com</a></li>
+              <li><a href="tel:+40768676141" className="text-muted-foreground hover:text-foreground transition-colors">+40 768 676 141</a></li>
               <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Discord Community</a></li>
               <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">YouTube Tutorials</a></li>
             </ul>
@@ -650,7 +658,7 @@ function LandingFooter() {
 
         <div className="mt-10 flex flex-col items-center justify-between gap-2 border-t border-border pt-6 sm:flex-row">
           <p className="text-xs text-muted-foreground">
-            © 2024 SSociety Studio. Toate drepturile rezervate.
+            © {new Date().getFullYear()} MURSE ADVERTISING S.R.L. Toate drepturile rezervate.
           </p>
           <div className="flex items-center gap-1 text-xs text-muted-foreground">
             <Globe className="h-3 w-3" /> Made in România 🇷🇴
