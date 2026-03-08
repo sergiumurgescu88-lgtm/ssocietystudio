@@ -12,6 +12,7 @@ import { GlobalLoader } from "@/components/GlobalLoader";
 import { ScrollToTop } from "@/components/ScrollToTop";
 
 // Lazy-loaded pages for code splitting
+const LandingPage = lazy(() => import("@/pages/LandingPage"));
 const Dashboard = lazy(() => import("@/pages/Dashboard"));
 const CrmNeural = lazy(() => import("@/pages/CrmNeural"));
 const AgentArmy = lazy(() => import("@/pages/AgentArmy"));
@@ -57,7 +58,10 @@ const App = () => (
             <ScrollToTop />
             <Suspense fallback={<GlobalLoader />}>
               <Routes>
-                {/* Public routes */}
+                {/* Public landing page */}
+                <Route path="/landing" element={<LandingPage />} />
+
+                {/* Auth routes */}
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
