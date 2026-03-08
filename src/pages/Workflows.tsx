@@ -223,7 +223,7 @@ export default function Workflows() {
       )}
 
       <CreateWorkflowDialog open={showCreate} onClose={() => setShowCreate(false)} onSave={handleCreate} />
-      </div>
     </>
   );
+}
 }
