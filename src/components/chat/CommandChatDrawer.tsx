@@ -166,7 +166,7 @@ export function CommandChatDrawer({ open, onClose }: CommandChatDrawerProps) {
             <div>
               <h3 className="text-sm font-semibold text-foreground">Command Chat</h3>
               <div className="flex items-center gap-1">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
                 <span className="text-[10px] text-muted-foreground">
                   {isStreaming ? "Se gândește..." : "Online"}
                 </span>
