@@ -290,7 +290,7 @@ export default function OnboardingWizard() {
       }
 
       toast.success(`Bine ai venit în SSociety Studio! 🚀${csvContacts.length > 0 ? ` ${csvContacts.length} contacte importate.` : ""}`);
-      navigate("/");
+      navigate("/dashboard");
     } catch (err) {
       toast.error("Eroare la salvarea preferințelor.");
     } finally {
